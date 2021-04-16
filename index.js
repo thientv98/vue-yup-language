@@ -1,8 +1,8 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.array = exports.object = exports.boolean = exports.date = exports.number = exports.string = exports.mixed = void 0;
+// Object.defineProperty(exports, "__esModule", { value: true });
+// exports.array = exports.object = exports.boolean = exports.date = exports.number = exports.string = exports.mixed = void 0;
 var printValue_1 = require('./printValue.js');
-exports.mixed = {
+var mixed = {
     default: '${path}는 올바르지 않습니다.',
     required: '${path}가 필요합니다.',
     oneOf: '비밀번호가 일치하지 않습니다',
@@ -22,7 +22,7 @@ exports.mixed = {
     },
     defined: '${path}가 정의되어야 합니다.'
 };
-exports.string = {
+var string = {
     length: '${path}는 ${length} 글자여야 합니다.',
     min: '${min} 자 이상으로 입력해주세요.',
     max: '${max}자 이하로 입력해주세요. ',
@@ -34,7 +34,7 @@ exports.string = {
     lowercase: '${path}는 소문자여야 합니다.',
     uppercase: '${path}는 대문자여야 합니다.'
 };
-exports.number = {
+var number = {
     min: '${path}는 ${min}보다 크거나 같아야 합니다.',
     max: '${path}는 ${max}보다 작거나 같아야 합니다.',
     lessThan: '${path}는 ${less}보다 작아야 합니다.',
@@ -43,28 +43,51 @@ exports.number = {
     negative: '${path}는 음수여야 합니다.',
     integer: '${path}는 정수여야 합니다.'
 };
-exports.date = {
+var date = {
     min: '${path}는 ${min}의 이후여야 합니다.',
     max: '${path}는 ${max}의 이전이어야 합니다.'
 };
-exports.boolean = {
+var boolean = {
     isValue: '${path}는 ${value}여야 합니다.'
 };
-exports.object = {
+var object = {
     noUnknown: '${path}에 다음 정의되지 않은 키가 있습니다: ${unknown}'
 };
-exports.array = {
+var array = {
     min: '${path}는 최소 ${min}개의 원소를 가져야합니다.',
     max: '${path}는 최대 ${max}개의 원소를 가져야합니다.',
     length: '${path}는 ${length}개의 원소를 가져야합니다.'
 };
-var yupLocaleKo = {
-    mixed: exports.mixed,
-    string: exports.string,
-    number: exports.number,
-    date: exports.date,
-    object: exports.object,
-    array: exports.array,
-    boolean: exports.boolean
+var yupLocalesKo = {
+    mixed: mixed,
+    string: string,
+    number: number,
+    date: date,
+    object: object,
+    array: array,
+    boolean: boolean
 };
-exports.default = yupLocaleKo;
+// exports.default = yupLocaleKo;
+
+export default function yupLocale(file) {
+    if(file) {
+        const transtation = file.yup;
+        return mergeRecursive(yupLocalesKo, transtation);
+    }
+    return yupLocalesKo;
+}
+
+function mergeRecursive(obj1, obj2) {
+    for (var p in obj2) {
+      try {
+        if ( obj2[p].constructor==Object ) {
+          obj1[p] = mergeRecursive(obj1[p], obj2[p]);
+        } else {
+          obj1[p] = obj2[p];
+        }
+      } catch(e) {
+        obj1[p] = obj2[p];
+      }
+    }
+    return obj1;
+}

@@ -1,0 +1,8 @@
+{
+  "name": "vue-yup-language",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/thientv98/vue-yup-language.git",
+  "author": "Thien <24351705+thientv98@users.noreply.github.com>",
+  "license": "MIT"
+}

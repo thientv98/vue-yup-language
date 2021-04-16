@@ -90,7 +90,7 @@ export declare let date: Required<DateLocale>;
 export declare let boolean: BooleanLocale;
 export declare let object: Required<ObjectLocale>;
 export declare let array: Required<ArrayLocale>;
-declare const yupLocaleKo: {
+declare const yupLocalesKo: {
     mixed: Required<MixedLocale>;
     string: Required<StringLocale>;
     number: Required<NumberLocale>;
@@ -99,4 +99,6 @@ declare const yupLocaleKo: {
     array: Required<ArrayLocale>;
     boolean: BooleanLocale;
 };
-export default yupLocaleKo;
+function yupLocale(file?:any):any;
+
+export default yupLocale;
